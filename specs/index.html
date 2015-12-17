@@ -1,0 +1,76 @@
+---
+layout: default
+title: IRC Specifications
+---
+
+<h1 id="logo">
+	Internet Relay Chat
+	<subtitle>
+		specifications
+	</subtitle>
+</h1>
+
+<p class="note">Lots of behaviour in the IRC protocol as implemented in clients and servers today is not formally specified. If you are looking to implement IRC software, the best thing to do is look at specifications, information, and how other software behaves as a guide.</p>
+
+<hr/>
+
+<h2>Useful Specifications</h2>
+
+<div class="link-block">
+	<div class="name">
+		<h3><a href="http://tools.ietf.org/html/rfc1459">RFC1459</a></h3>
+	</div>
+	<details>
+		<p>The canonical IRC specification. At this point, this spec is very old. However, it's still one of the primary references for most software out there.</p>
+
+		<p>It's recommended to implement IRC based off this specification, finding real-world differences by comparing your software with other clients and servers around.</p>
+	</details>
+</div>
+
+<div class="link-block">
+	<div class="name">
+		<h3><a href="http://tools.ietf.org/html/rfc7194">RFC7194</a></h3>
+	</div>
+	<details>
+		<p>6697 is IRC's TLS port. It's now in an RFC. Hooray.</p>
+
+		<p>This also specifies some details about certificates that are useful to keep in mind.</p>
+	</details>
+</div>
+
+<div class="link-block">
+	<div class="name">
+		<h3><a href="https://github.com/grawity/irc-docs/blob/master/client/RPL_ISUPPORT/draft-hardy-irc-isupport-00.txt"><span class="mono">RPL_ISUPPORT</span> Hardy Internet-Draft</a></h3>
+	</div>
+	<details>
+		<p>Every server implements this. This is mandatory for any client implementing any sort of intelligence. Yes, this is an Internet-Draft and not an RFC. Ignore that. Even though this is not an IETF standard, <span class="mono">RPL_ISUPPORT</span> is implemented by everything.</p>
+
+		<p>Regarding specific <span class="mono">RPL_ISUPPORT</span> keys used these days, look at various servers and networks.</p>
+	</details>
+</div>
+
+<div class="link-block">
+	<div class="name">
+		<h3><a href="http://ircv3.net/irc/">IRCv3 Working Group</a></h3>
+	</div>
+	<details>
+		<p>This is a working group made up of a whole bunch of IRC software authors. IRCv3 specifications are written by various software authors, submitted, and accepted if the majority of the group agrees on them. These are recommended and tend to introduce new and useful features to the IRC protocol.</p>
+
+		<p>Regarding specific IRCv3 specifications, here are rough support matrixes for <a href="http://ircv3.net/software/clients.html">clients</a> and <a href="http://ircv3.net/software/servers.html">servers</a>.</p>
+	</details>
+</div>
+
+<hr/>
+
+<h2>Not-As-Useful Specifications</h2>
+
+<div class="link-block">
+	<div class="name">
+		<h3><a href="http://tools.ietf.org/html/rfc2812">RFC2812</a></h3>
+	</div>
+	<details>
+		<p>An update to RFC1459. This update, however, was not universally accepted. Do not take this specification too seriously. Most software doesn't give this spec much sway, and consider it a suggestion if anything.</p>
+
+		<p>It's generally best to work off <a href="http://tools.ietf.org/html/rfc1459">RFC1459</a> and find implementation differences from there, given the amount of content in RFC2812 that's been outright rejected and not implemented.</p>
+	</details>
+</div>
