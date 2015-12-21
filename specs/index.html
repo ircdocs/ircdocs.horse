@@ -18,12 +18,22 @@ title: IRC Specifications
 
 <div class="link-block">
 	<div class="name">
-		<h3><a href="http://tools.ietf.org/html/rfc1459">RFC1459</a></h3>
+		<h3><a href="http://tools.ietf.org/html/rfc1459">RFC1459</a> and <a href="http://tools.ietf.org/html/rfc2812">RFC2812</a></h3>
 	</div>
 	<details>
-		<p>The canonical IRC specification. At this point, this spec is very old. However, it's still one of the primary references for most software out there.</p>
+		<p>The earlier and the latter canonical IRC specifications, respectively.</p>
 
-		<p>It's recommended to implement IRC based off this specification, finding real-world differences by comparing your software with other clients and servers around.</p>
+		<p>Some software holds <a href="http://tools.ietf.org/html/rfc1459">RFC1459</a> in higher regard than <a href="http://tools.ietf.org/html/rfc2812">RFC2812</a>, and some hold the opposite in higher regard. Honestly, the truth tends to lie somewhere in the middle.</p>
+
+		<p>There are many things in the newer <a href="http://tools.ietf.org/html/rfc2812">RFC2812</a> that software authors (reasonably) conside insane. And there are many things that have updated <a href="http://tools.ietf.org/html/rfc1459">RFC1459</a> in useful ways and have been widely-implemented by clients and servers today.</p>
+
+		<p>In the same way, <a href="http://tools.ietf.org/html/rfc1459">RFC1459</a> has many useful points, and there are also many places where due to its age or simply deviating implementations, it also has information that's totally incorrect.</p>
+
+		<p>Honestly, use these as a rough reference, say for a basic implementation. And then compare <strong>everything</strong> with multiple real-world servers and clients to find out how broken and incompatible your to-the-spec implementation is with the actual ones out there today.</p>
+
+		<p><strong>Do not</strong> take either of these specifications as gospel. They are both very old, and have lots of places where either due to age or decision, modern software specifically does not follow them.</p>
+
+		<p>Welcome to IRC, where the base specs we work off are all old and broken and regarded more as a suggestion than anything binding. As they say, "Thanks for flying IRC!"</p>
 	</details>
 </div>
 
@@ -45,7 +55,7 @@ title: IRC Specifications
 	<details>
 		<p>Every server implements this. This is mandatory for any client implementing any sort of intelligence. Yes, this is an Internet-Draft and not an RFC. Ignore that. Even though this is not an IETF standard, <span class="mono">RPL_ISUPPORT</span> is implemented by everything.</p>
 
-		<p>Regarding specific <span class="mono">RPL_ISUPPORT</span> keys used these days, look at various servers and networks.</p>
+		<p>However, not all the <span class="mono">RPL_ISUPPORT</span> keys listed in this are used these days. Once again, look at various servers and networks around to see what you should implement.</p>
 	</details>
 </div>
 
@@ -57,20 +67,5 @@ title: IRC Specifications
 		<p>This is a working group made up of a whole bunch of IRC software authors. IRCv3 specifications are written by various software authors, submitted, and accepted if the majority of the group agrees on them. These are recommended and tend to introduce new and useful features to the IRC protocol.</p>
 
 		<p>Regarding specific IRCv3 specifications, here are rough support matrixes for <a href="http://ircv3.net/software/clients.html">clients</a> and <a href="http://ircv3.net/software/servers.html">servers</a>.</p>
-	</details>
-</div>
-
-<hr/>
-
-<h2>Not-As-Useful Specifications</h2>
-
-<div class="link-block">
-	<div class="name">
-		<h3><a href="http://tools.ietf.org/html/rfc2812">RFC2812</a></h3>
-	</div>
-	<details>
-		<p>An update to RFC1459. This update, however, was not universally accepted. Do not take this specification too seriously. Most software doesn't give this spec much sway, and consider it a suggestion if anything.</p>
-
-		<p>It's generally best to work off <a href="http://tools.ietf.org/html/rfc1459">RFC1459</a> and find implementation differences from there, given the amount of content in RFC2812 that's been outright rejected and not implemented.</p>
 	</details>
 </div>
