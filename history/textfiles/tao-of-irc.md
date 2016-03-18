@@ -2,7 +2,7 @@
 layout: account
 title: The Tao of Internet Relay Chat
 author: Ove Ruben R. Olsen
-written: 1994
+written: Jan 10 1994
 source: ftp://ftp.funet.fi/pub/unix/irc/docs/Tao-of-IRC.940110
 ---
 
