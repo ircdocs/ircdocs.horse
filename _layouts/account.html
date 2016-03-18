@@ -11,9 +11,11 @@ layout: default
 <h2>
     {{ page.title }}
     <span class="author">by {{ page.author }}</span>
+    {% if page.written %}
     <span class="datetime">
-        {{ page.datetime }}
+        {{ page.written }}
     </span>
+    {% endif %}
     <span class="source">
         <a href="{{ page.source }}">{{ page.source }}</a>
     </span>
