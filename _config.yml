@@ -6,4 +6,4 @@ exclude:
 permalink: none
 
 highlighter: rouge
-markdown: rdiscount
+markdown: kramdown
