@@ -118,6 +118,24 @@ html, body
         font-weight: bold
         color: #112
 
+.author
+    display: block
+    font-size: 1rem
+    margin-left: 1rem
+.datetime, .source
+    font-weight: normal
+    display: block
+    font-size: 0.9rem
+    color: rgba(0.2, 0.2, 0.2, 0.8)
+.datetime
+    margin-top: 0.5rem
+    &::before
+        content: "Written "
+.source
+    margin-top: 0.15rem
+    &::before
+        content: "Source: "
+
 .mono
     font-family: $mono_font_family
     font-size: 80%
