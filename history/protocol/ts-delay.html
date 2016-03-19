@@ -1,0 +1,411 @@
+---
+layout: account
+title: TS - Delay comparison
+author: Christophe Kalt
+written: June 12 1996
+source: http://www.irc.org/tech_docs/TS-Delay.html
+---
+This document was last modified on June 12th, 1996.
+
+<p>
+This document attempts to describe both the TS and Delay
+concepts in an objective manner.  Since I am known to not
+like TS, I have asked several people to read this document
+and help me making it as objective as possible.  
+</p>
+
+<ol>
+<li><a href="#why">What is the purpose of these concepts?</a>
+</li><li><a href="#summary">Summary of the two concepts</a>
+<ul>
+<li><a href="#TS">TS</a>
+</li><li><a href="#Delay">Delay</a>
+</li></ul>
+</li><li><a href="#tech">Technical comparison</a>
+</li><li><a href="#polit">Policital issues</a>
+</li><li><a href="#probs">The ``problems''</a>
+</li><li><a href="#conclusion">Last note</a>
+</li></ol>
+
+<p></p><hr><p>
+
+</p><h2 id="why">Why?</h2>
+Both concepts (TS and Delay) attempt to solve two widely
+known problems with IRC 2:
+<ul>
+<li> nickname collisions
+</li><li> channel op riding
+</li></ul>
+
+<h2>TS</h2>
+TS stands for <b>T</b>ime<b>S</b>tamp. <br>
+The </a><a href="http://www.eleves.ens.fr:8080/home/espel/TS/index.html">protocol</a>
+is fully described by Roger Espel Llima, its author.  It has
+been added by Chris Behrens and Shrihari Pandit to their own
+server versions.
+<p>
+
+</p><h2>Delay</h2>
+The delay concept is implemented in the version 2.9 of the
+official IRC server.  This version is still a beta release.
+It has not been documented yet (as of 96/06/06).
+<p>
+<b>Note:</b>The nickname delay concept was first introduced
+in the so-called E1 patch (for 2.8.21) and is <b>NOT</b> the
+one implemented in the 2.9 version.
+
+</p><p></p><hr><p>
+
+<a name="summary">
+The following descriptions do not pretend to be complete.
+The purpose of this document is to offer enough material for
+someone to be able to decide which method is better, if any.
+</a></p><p><a name="summary">
+It is important to note that there are two very different
+aspects of the problem:
+</a></p><ul><a name="summary">
+<li> a technical aspect
+</li><li> a political aspect
+</li></a></ul><a name="summary">
+<b>Both aspects are different and should <em>not</em> be
+confused.</b>
+
+<p></p><hr>
+</a><a name="TS">
+<h2>The TS concept</h2>
+<h4>Nicknames</h4>
+A TS server knows which of two nickname clients is the most
+recent.  Thus it is possible for it to decide to kill only
+<em>one</em> of the clients.  <br>
+This protects the <em>older</em> user from intentional
+nickname collisions.
+
+<h4>Channels</h4>
+As for channels, a TS server is able to decide which
+channel operator is the youngest (for each channel).  This
+makes the removal of channel operator status for users who
+are riding splits possible.
+
+<h4>Technical notes</h4>
+<ul>
+<li> it associates a TimeStamp to entities (nicknames and
+channels) which are used later to decide how to react when a
+conflict occurs (collision, or op riding).
+</li><li> it is only functional between directly linked TS
+servers.
+</li><li> when a conflict occurs, a TS server <b>relies</b> on
+the server which created the conflict to take exactly the
+same decision to solve the conflict.
+</li></ul>
+
+<hr>
+</a><a name="Delay">
+<h2>The Delay concept</h2>
+<h4>Nicknames</h4>
+A server with nickname delay keeps users from using a
+nickname recently used, if the nickname has either split
+away or being killed.
+
+<h4>Channels</h4>
+A server with channel delay does not allow users to join
+channels which have recently lost their channel op because
+of split and which are empty. (e.g. joins are always allowed
+if a channel is not empty).
+
+<h4>Technical notes</h4>
+<ul>
+<li> a "nickname recently used" is defined by a nickname
+which has recently (up to 15 minutes) split.
+</li><li> "recently lost channel op" is defined by a channel op
+splitting recently (up to 15 minutes in normal conditions).
+</li></ul>
+
+<hr>
+</a><a name="tech">
+<h2>A simple technical comparison</h2>
+<ol>
+<li>As a first note, neither of the two methods stops
+nickname collisions, nor channel takeovers.  But they both
+have a different way to handle them:
+<ul>
+<li> TS will let users do whatever they want, and attempt to
+fix later when a conflict occurs.
+</li><li> With the delay concept, users aren't allowed actions
+which would <em>possibly</em> lead to a conflict later.
+</li></ul>
+<p>
+This simple comparaison explains why Delay is often said to
+be annoying while TS is said to be transparent, but I find
+this to be a poor objection:
+</p><p>
+</p><ul>
+<li> With TimeStamp:
+<ol>
+<li> UserA with NickA and UserB with NickB are on IRC on
+different servers.
+</li><li> There is a split inbetween the servers UserA and UserB
+are on.
+</li><li> UserB nicks to NickA.
+</li><li> The servers reconnect.
+</li><li> There is a nick collision and the Timestamp says
+UserA's NickA is older so UserB's NickA is killed.
+</li><li> UserA with NickA doesn't know the difference, but UserB
+does (because he got killed in step 5).
+</li></ol>
+<p>
+</p></li><li> With Nickname Delay:
+<ol>
+<li> UserA with NickA and UserB with NickB are on IRC on
+different servers.
+</li><li> There is a split inbetween the servers UserA and UserB
+are on.
+</li><li> UserB tries to change to NickA, but cannot because of
+Nickname Delay.
+</li><li> The servers reconnect.
+</li><li> nothing happens.
+</li><li> UserA with NickA doesn't know the difference, but UserB
+does (because he was not able to get NickA in step 3).
+</li></ol>
+</li></ul>
+<p>
+Both are 'transparent' to UserA, because he didn't know
+anything odd happened.
+</p><p>
+Neither are 'transparent' to UserB, because in both cases,
+something unexpected happened as a result of trying to use
+NickA.  For TimeStamp, the user was Killed.  For Nickname
+Delay, the user was not allowed to take the nick.
+</p><p>
+Depending on the situation:
+</p><ul>
+<li> TimeStamp can be found more annoying than 
+Nickname Delay: If UserB is <em>not</em> trying to collide
+UserA, UserB will later get disconnected (killed) which is
+rather annoying.
+</li><li> Nickname Delay can be found more annoying than
+TimeStamp: If UserB is also UserA and switching from servers
+to get around the split, the user cannot user NickA (his/her
+own nickname) for a while.
+</li></ul>
+<p>
+(Nickname) Delay tries to protect everyone, while TimeStamp
+tries to protect only the "rightful" users.
+</p><p>
+<b>Note:</b> A similar example can be made with channels.
+
+</p><p></p><hr><p>
+</p></li><li> One big difference between the two concepts is the way
+to handle problems.  TS will always rely on the net, while
+Delay will never.  This means that TS can cause havoc on the
+whole net (as seen on some occasions), while Delay will
+never affect remote entities.
+
+<p></p><hr><p>
+</p></li><li> TimeStamp can handle splits of an abritrary length,
+Delay for only 15 minutes.
+
+<p></p><hr><p>
+</p></li><li> Delay does not broadcast any extra info, TimeStamp
+does (mostly stamps).
+<p>
+In the example above, TimeStamp broadcasts more information
+than Nickname Delay: nick change and the eventual nickname
+collision on every server on one side of the split.
+
+</p><p></p><hr><p>
+</p></li><li> TimeStamp uses memory for stamps (100Kb for 25K users,
+24Kb for 6K channels),<br>
+Delay uses memory for Nickname Delay (close to 400Kb for 25K
+users). Channel Delay memory use is close to 0.
+
+<p></p><hr><p>
+</p></li><li> TimeStamp requires a homogenous network to work
+effectively, Delay does, but not as much.
+
+</li></ol>
+
+<p></p><hr>
+</a><a name="polit">
+<h2>The political issues</h2>
+</a><ol><a name="polit">
+</a><li><a name="polit"> The net has a spirit (also read an </a><a href="http://www.irc.org/tech_docs/spirit">operlist post</a> by M. D. Yesowitch)
+<p>
+The net that we know has a long history, and many ``well
+known rules''.  As far as I can remember, it has always been
+said that <em>"nicknames and channels are not owned"</em>.
+</p><p>
+This state of things is easy to notice on a net where
+collisions and takeovers are a common thing.  With TimeStamp
+or Delay, things change, and what was clear before is not
+that clear anymore.
+</p><p>
+The problem is that TimeStamp decides who the rightful
+user is and the logic used for this is far to be approved by
+everyone (read below, long splits and TS for one
+example). With the delay patches, no choice thus no mistake
+is ever done, but sometimes, it will let a conflict happens.
+</p><p>
+It is now easy to understand that when TimeStamp makes the
+'wrong' decision, the user who has been "punished" and who was
+"right" will <em>require</em> or at least <em>expect</em>
+someone/something to correct the situation. It is what leads
+to the need for ``services''.
+</p><p>
+
+</p><p></p><hr><p>
+</p></li><li> Channel service
+<p>
+A channel service, as known on other IRC networks is
+something that goes against the long established
+<em>"channels are not owned"</em> and would be a big change
+on the net.  This is one of the main reasons why people are
+opposed to TS, because, as stated above, it easily leads to
+<em>"Now that we have TS, we need a channel service"</em>.
+</p></li></ol>
+
+<p></p><hr>
+<h2 id="probs">The problems</h2>
+<ol>
+<li> lag-killer bots
+<p>
+Quoting Doug McLaren talking about nickname delay:
+<em>There's nothing to stop the `lag-killer bot'.  This bot
+keeps two connections open - one on your server, one on a
+remote server.  It also sits on a channel that you are on.
+As soon as it sees you change nick with it's local
+connection, it signals the remote connection to take the
+same nick.  The two nick changes meet somewhere in the
+middle, and you get killed.</em>
+</p><p>
+
+TimeStamping does not really solve this either.  It limits
+the abuse because the `lag-killer bot' has to be fast, but
+this is not really a problem.
+</p><p>
+Roger Espel Llima says: <em>neither solution deals with them
+completely; TS leaves them with a success rate of about 50%;
+with ND they're always successful</em>
+</p><p>
+Vesa Ruokonen answers: <em>Nickname Delay doesn't make abuse
+always successful. With it, the kill can happen only
+once</em> (on a given nickname)<em>, after that the
+nickname gets locked, and the bot cannot continue looping
+like with TS.</em> 
+
+</p><p></p><hr><p>
+</p></li><li> restarted servers
+<p>
+Quoting Doug McLaren talking about nickname delay:
+<em>The same goes for a server that has just been /restarted
+or started.  That case is a little better, because, if the
+server's C/N lines are set up right, it will start
+connecting immediately, only giving the colliders a few
+seconds to connect before it gets connected and processes
+the connect burst.</em>
+</p><p>
+
+I guess client connections could be delayed, in these
+conditions. But I don't really see any easy way to do it,
+nor to know that the server has processed the whole connect
+burst.
+
+</p><p></p><hr><p>
+</p></li><li> long splits
+<p>
+</p><ul>
+<li> nickname delay
+<p>
+Quoting Doug McLaren talking about nickname delay:
+<em>There's nothing to stop a server that has been split for
+more than 15 minutes from being used to nick collide.  If
+one client on this server starts cycling through all the
+nicks it wants to kill as soon as the server reconnects to
+the net, it can be used to cause lots of nick collisions.</em>
+</p><p>
+
+This is quite true.  But as you will read below, servers
+should not be split that long (at least not on a regular
+basis).  Of course, it happens.
+
+</p><p></p><hr><p>
+</p></li><li> channel delay
+<p>
+Quoting Doug McLaren talking about channel delay:
+<em>If a server is split for more than fifteen minutes, all
+channel delays will have expired, and they'll be able to
+hack ops on any channel they want to, assuming nobody on
+this server is already on this channel. </em></p><p><em>
+
+Network and machine outages often last more than 15 minutes
+...</em>
+</p><p>
+There are three things to answers to these two statements.
+</p><p>
+First, in its current version, channel delay does not expire
+after fifteen minutes on a server which is ``completely''
+split.  In such case, it will take longer.
+</p><p>
+Second, I don't really know how you plan to abuse a server
+which is unreachable.  If there's a network outage, only
+local users should be able to abuse, given that they won't
+see the other part of the net, they will only be able to
+act against known ``targets''.<br>
+Also, it makes the number of potential abusers really
+limited.
+</p><p>
+Finally, if a server, or part of the net is used to have
+long splits, my very personal opinion is that it should not
+be linked at all.
+
+</p><p></p><hr><p>
+</p></li><li> TimeStamp
+<p>
+According to me, TimeStamp also has problems with long
+splits.  I will take the example of TimeStamp on nicknames,
+but a similar comment can be made for channels.
+</p><p>
+Let's assume two servers are split for a long time.  Then,
+two users can use the same nick for an important amount of
+time, and only one will be killed on reconnect.  I believe
+that there is no way to choose the right one.
+</p><p>
+This can lead to have someone who usually uses a nickname to
+be killed (if he restarted his client recently, or changed
+nicknames at some point).
+</p></li></ul>
+</li></ol>
+<p></p><hr>
+</a><a id="conclusion">
+<h2>Last note</h2>
+I believe this document gives quite a complete overview of
+both concepts. The purpose now is for you to <b>think</b>
+and may be decide which one you prefer. But you should be at
+least able to make up your mind, on your own (forgetting all
+what you have heard so far).
+<p>
+You should probably read this again, because there are many
+important points which are rather hidden because of the
+length. I tried to address all issues, they all have
+different importance, but this is quite subjective.
+</p><p>
+<b>The most important thing to know and remember, is that
+either concept is only <em>FULLY</em> effective if the whole
+IRC net is running it.</b>
+</p><p></p><hr><p>
+
+Thanks to the following people for reviewing this document,
+and commenting it:
+</p><ul>
+<li> Vegard Engen
+</li><li> Doug McLaren
+</li><li> Roger Espel Llima
+</li><li> Tom Hopkins
+</li><li> Per Persson
+</li><li> Vesa Ruokonen
+</li><li> Alex Samonte
+</li><li> M. D. Yesowitch
+</li></ul>
+</a><p><a id="conclusion">
+<em>Christophe Kalt</em> &lt;</a><a href="mailto:kalt@stealth.net">kalt@stealth.net</a>&gt;
+
+</p>
