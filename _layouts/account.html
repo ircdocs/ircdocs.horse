@@ -16,9 +16,13 @@ layout: default
         {{ page.written }}
     </span>
     {% endif %}
+    {% if page.source %}
     <span class="source">
         <a href="{{ page.source }}">{{ page.source }}</a>
     </span>
+    {% endif %}
 </h2>
+
+<hr>
 
 {{ content }}
