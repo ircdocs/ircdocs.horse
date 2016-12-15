@@ -50,14 +50,14 @@ title: IRC Specifications
 
 <div class="link-block">
 	<div class="name">
-		<h3><a href="https://github.com/grawity/irc-docs/blob/master/client/RPL_ISUPPORT/draft-hardy-irc-isupport-00.txt">RPL_ISUPPORT Hardy Internet-Draft</a></h3>
+		<h3><a href="http://modern.ircdocs.horse/#rplisupport-005">RPL_ISUPPORT numeric</a></h3>
 	</div>
 	<div class="details">
-		<p>Every server implements this. This is mandatory for any client implementing any sort of intelligence. Yes, this is an Internet-Draft and not an RFC. Ignore that. Even though this is not an IETF standard, <span class="mono">RPL_ISUPPORT</span> is implemented by everything.</p>
+		<p>Every server implements this. This is mandatory for any client implementing any sort of intelligence. The <span class="mono">RPL_ISUPPORT</span> numeric is implemented by literally everything.</p>
 
-		<p>However, not all the <span class="mono">RPL_ISUPPORT</span> keys listed in this are used these days. Once again, look at various servers and networks around to see what you should implement. There is also the <a href="http://defs.ircdocs.horse/defs/isupport.html">RPL_ISUPPORT Token list</a> I maintain over on my <a href="http://defs.ircdocs.horse/">irc-defs</a> page</p>
+		<p>The original <span class="mono">RPL_ISUPPORT</span> specs are old and describe keys which are no longer used today. This one describes the widely-used parameters that clients and servers SHOULD implement. There is also the <a href="http://defs.ircdocs.horse/defs/isupport.html">RPL_ISUPPORT Token list</a> I maintain over on my <a href="http://defs.ircdocs.horse/">irc-defs</a> page</p>
 
-		<p>Note that not all parts of this spec are implemented by clients. For instance, many client don't understand the <code class="nobreakinside">"-&lt;key&gt;"</code> syntax. Look at what servers advertise on connection, and what other clients support.</p>
+		<p><strong>Full disclosure:</strong> I wrote on the spec I'm linking here. The original spec people tend to refer to is the <a href="https://github.com/grawity/irc-docs/blob/master/client/RPL_ISUPPORT/draft-hardy-irc-isupport-00.txt">RPL_ISUPPORT Hardy Internet-Draft</a>.</p>
 	</div>
 </div>
 
@@ -85,11 +85,12 @@ title: IRC Specifications
 
 <div class="link-block">
 	<div class="name">
-		<h3><a href="https://www.irc.wiki/WebIRC">WEBIRC Command</a></h3>
+		<h3><a href="https://wiki.mibbit.com/index.php/WebIRC">WEBIRC Command</a></h3>
 	</div>
 	<div class="details">
 		<p>The <span class="mono">WEBIRC</span> command is widely used in the implementation of web-based IRC clients in connecting to IRCds. Only privileged hosts can use this command, since <span class="mono">WEBIRC</span> lets the client sending it to set the hostname/IP address of the current connection.</p>
-		<p>This specification is linked here because it's one of the first I stumbled on that looked alright, there's probably others that are more complete.</p>
+
+		<p>This specification is linked here just because it's one of the first I stumbled on that looked alright.</p>
 	</div>
 </div>
 
@@ -98,9 +99,9 @@ title: IRC Specifications
 		<h3><a href="http://modern.ircdocs.horse/ctcp.html">Client-to-Client Protocol (CTCP)</a></h3>
 	</div>
 	<div class="details">
-		<p>CTCP is the Client-to-Client Protocol. Supported by a large number of clients, it allows for special messages to be exchanged between clients (with a number of caveats). Very useful, and clients need to implement certain parts of it to be useful today.</p>
+		<p>CTCP is the Client-to-Client Protocol. Supported by a large amount of software, it allows for special messages to be exchanged between clients. Very useful, and clients need to implement certain parts of it.</p>
 
-		<p>The original CTCP specifications required an insanely large amount of quoting which didn't end up getting supported and/or got explicitly rejected by the clients out there today. As such, I've linked a newer, lean CTCP specification which describes just the parts that are generally useful to clients today.</p>
+		<p>The original CTCP specifications required insanely extensive quoting mechanisms which didn't end up getting supported and/or got explicitly rejected by the clients out there today. As such, I've linked a newer, lean CTCP specification which describes just the parts that are generally useful to clients today.</p>
 
 		<p><strong>Full disclosure:</strong> I worked on the spec I'm linking here.</p>
 	</div>
@@ -113,7 +114,7 @@ title: IRC Specifications
 	<div class="details">
 		<p>DCC stands for Direct Client-to-Client. XDCC is an extension which stands for Xabi's DCC (widely referred to as Extended DCC these days). These protocols allow for traffic to be exchanged directly between clients (again, with a number of caveats). Proposed uses for this have also included 'whiteboards' and direct chatting. However, these days DCC/XDCC is primarily used for file exchange between clients. DCC file transfers don't use any sort of encryption, and as such… I'd recommend building something better these days.</p>
 
-		<p>I haven't linked any specs here because there are a bunch of different, old specifications. It's difficult to point to one as authoritative without combing through all of them to see how closely they're followed these days.</p>
+		<p>I haven't linked any specs here because there are a bunch of differing, old specifications. It's difficult to point to one as authoritative without combing through all of them to see how closely they're followed these days.</p>
 	</div>
 </div>
 
