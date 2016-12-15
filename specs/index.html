@@ -95,12 +95,25 @@ title: IRC Specifications
 
 <div class="link-block">
 	<div class="name">
-		<h3>CTCP/DCC/XDCC</h3>
+		<h3><a href="http://modern.ircdocs.horse/ctcp.html">Client-to-Client Protocol (CTCP)</a></h3>
 	</div>
 	<div class="details">
-		<p>CTCP is the Client-to-Client Protocol. Supported by a large number of clients, it allows for special messages to be exchanged between clients (with a number of caveats). Useful, but we really should be building something better these days, and a large amount of the quoting specified in the original docs plain isn't supported or has been explicitly rejected by most of the clients out there today. If you try to implement all of the quoting in the original specs of this, you are insane.</p>
-		<p>DCC stands for Direct Client-to-Client. XDCC stands for Xabi's DCC (but is widely referred to as Extended DCC). These protocols allow for traffic to be exchanged directly between clients (again, with a number of caveats). Proposed uses for this have also included 'whiteboards' and direct chatting. However, these days DCC/XDCC is primarily used for file exchange between clients. As with CTCP, this is useful, but we should be trying to build something better these days (particularly as DCC file transfers do not use encryption).</p>
-		<p>I haven't linked any specs here because there are a bunch of different specifications and it's difficult to point to one as authoritative without going through all of them and combing through them to see how closely they are followed these days.</p>
+		<p>CTCP is the Client-to-Client Protocol. Supported by a large number of clients, it allows for special messages to be exchanged between clients (with a number of caveats). Very useful, and clients need to implement certain parts of it to be useful today.</p>
+
+		<p>The original CTCP specifications required an insanely large amount of quoting which didn't end up getting supported and/or got explicitly rejected by the clients out there today. As such, I've linked a newer, lean CTCP specification which describes just the parts that are generally useful to clients today.</p>
+
+		<p><strong>Full disclosure:</strong> I worked on the spec I'm linking here.</p>
+	</div>
+</div>
+
+<div class="link-block">
+	<div class="name">
+		<h3>DCC/XDCC</h3>
+	</div>
+	<div class="details">
+		<p>DCC stands for Direct Client-to-Client. XDCC is an extension which stands for Xabi's DCC (widely referred to as Extended DCC these days). These protocols allow for traffic to be exchanged directly between clients (again, with a number of caveats). Proposed uses for this have also included 'whiteboards' and direct chatting. However, these days DCC/XDCC is primarily used for file exchange between clients. DCC file transfers don't use any sort of encryption, and as such… I'd recommend building something better these days.</p>
+
+		<p>I haven't linked any specs here because there are a bunch of different, old specifications. It's difficult to point to one as authoritative without combing through all of them to see how closely they're followed these days.</p>
 	</div>
 </div>
 
@@ -117,7 +130,7 @@ title: IRC Specifications
 
 		<p>The primary document on this site is an in-progress replacement of RFC1459/2812. It aims to be a useful overview of the IRC client protocol as it is implemented today.</p>
 
-		<p>I don't specify brand new stuff here, just existing behaviour present in IRC software and/or networks. These documents should be useful to IRC developers today, not in 10 years time.</p>
+		<p>I don't specify brand new stuff here, just existing behaviour present in IRC software and/or networks. I aim for these documents to be useful to IRC developers today, not in 10 years time.</p>
 	</div>
 </div>
 
