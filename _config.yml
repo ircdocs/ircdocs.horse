@@ -3,6 +3,9 @@ exclude:
   - config.rb
   - .sass-cache
 
+gems:
+  - jekyll-sitemap
+
 permalink: none
 
 highlighter: rouge
