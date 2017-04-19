@@ -31,7 +31,9 @@ title: IRC Specifications
 
 		<p>Honestly, use these as a rough reference, say for a basic implementation. And then compare <strong>everything</strong> with multiple real-world servers and clients to find out how broken and incompatible your to-the-spec implementation is with the actual ones out there today.</p>
 
-		<p><strong>Do not</strong> take either of these specifications as gospel. They are both very old, and have lots of places where either due to age or decision, modern software specifically does not follow them.</p>
+		<p>If you're looking at these, it's worth taking a look at the <a href="https://modern.ircdocs.horse/">Modern IRC</a> docs which I'm writing up. The main doc there acts essentially as a replacement to these two, but is still very, very much a work in progress.</p>
+
+		<p><strong>Do not</strong> take RFC 1459 or 2812 of these original specifications as gospel. They are both very old, and have lots of places where either due to age or decision, modern software specifically does not follow them.</p>
 
 		<p>Welcome to IRC, where the base specs we work off are all old and broken and regarded more as suggestions than anything binding. Strap in and "Thanks for flying IRC!"</p>
 	</div>
@@ -85,12 +87,12 @@ title: IRC Specifications
 
 <div class="link-block">
 	<div class="name">
-		<h3><a href="https://wiki.mibbit.com/index.php/WebIRC">WEBIRC Command</a></h3>
+		<h3><a href="http://ircv3.net/specs/extensions/webirc.html">WEBIRC Command</a></h3>
 	</div>
 	<div class="details">
 		<p>The <span class="mono">WEBIRC</span> command is widely used in the implementation of web-based IRC clients in connecting to IRCds. Only privileged hosts can use this command, since <span class="mono">WEBIRC</span> lets the client sending it to set the hostname/IP address of the current connection.</p>
 
-		<p>This specification is linked here just because it's one of the first I stumbled on that looked alright.</p>
+		<p>This specification is one done up with the IRCv3 WG that basically describes how it works today. It's WiP but should be pretty accurate.</p>
 	</div>
 </div>
 
@@ -114,7 +116,7 @@ title: IRC Specifications
 	<div class="details">
 		<p>DCC stands for Direct Client-to-Client. XDCC is an extension which stands for Xabi's DCC (widely referred to as Extended DCC these days). These protocols allow for traffic to be exchanged directly between clients (again, with a number of caveats). Proposed uses for this have also included 'whiteboards' and direct chatting. However, these days DCC/XDCC is primarily used for file exchange between clients. DCC file transfers don't use any sort of encryption, and as such… I'd recommend building something better these days.</p>
 
-		<p>I haven't linked any specs here because there are a bunch of differing, old specifications. It's difficult to point to one as authoritative without combing through all of them to see how closely they're followed these days.</p>
+		<p>I haven't linked any specs here because there are a bunch of differing, old specifications. It's difficult to point to one as authoritative without combing through all of them to see how closely they're followed these days. However, I've been writing up <a href="https://modern.ircdocs.horse/dcc.html">this</a> very work-in-progress one that may be useful (but doesn't describe everything or all the extensions yet).</p>
 	</div>
 </div>
 
