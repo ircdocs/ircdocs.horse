@@ -1,102 +1,110 @@
 ---
 ---
 
-// variables
-//
-$desktop-width: 57rem
-$mobile-width: 30rem
-$body_padding: 1rem 1rem
-$standard_font_family: "Open Sans", sans-serif
-$reading_font_family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif
-$content_font_family: "Open Sans", Arial, sans-serif
-$mono_font_family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace
+@import mixins/reset
+@import mixins/font-awesome-min
+@import mixins/font-opensans
+@import mixins/media
+@import mixins/ircdocs
 
-// Media queries
-//
-@mixin respond-to($media)
-    @if $media == wide
-        @media only screen and (min-width: $desktop-width)
-            @content
-    @else if $media == desktop
-        @media only screen and (min-width: $mobile-width) and (max-width: $desktop-width)
-            @content
-    @else if $media == mobile
-        @media only screen and (max-width: $mobile-width)
-            @content
-
-// styling
-//
+// sticky footer
 html
-    box-sizing: border-box
-*, *:before, *:after
-    box-sizing: inherit
+    min-height: 100%
+    display: flex
+body
+    min-height: 100%
+    flex: 1 1 auto
+    display: flex
+    flex-direction: column
+    #content
+        flex: 1 1 auto
 
-// table stuff
-html, body
-    font-family: $standard_font_family
-    height: 100%
-    background: #f7f8fc
+// overall settings
+html
+    // overscroll
+    background: $ircdocs-dark-blue
 
-#nav
-    width: 100%
-    background: #334
-    color: #f7f7fa
-    > div
-        @include respond-to(wide)
-            max-width: $desktop-width - 2rem
-            margin: 0 auto
-            padding: 0.25rem 0 0.2rem
-        @include respond-to(desktop)
-            margin: 0 1rem
-            padding: 0.25rem 0 0.2rem
-        @include respond-to(mobile)
-            padding: 0.25rem 0.3rem 0.2rem
-        a
-            text-decoration: none
-            color: #e7e7ff
-            &:hover
-                color: #ccf
+body
+    font-family: $standard-font-stack
+    background: $ircdocs-light-bg
 
-        nav > a
-            margin-left: 1.5rem
-            &:first-child
-                margin-left: 0
-                @include respond-to(wide)
-                    margin-right: 2.75rem
-                @include respond-to(desktop)
-                    margin-right: 2.75rem
-                @include respond-to(mobile)
-                    display: block
-            @include respond-to(mobile)
-                &:nth-child(2)
-                    margin-left: 0
-            i
-                font-size: 0.9rem
-                vertical-align: baseline
+#darkmodebtn
+    display: block
+    position: fixed
+    left: 0.3em
+    bottom: 0.3em
+    padding: 0.5em 0.6em
+    border-radius: 5em
+    font-size: 1.7rem
+    background: transparentize($ircdocs-light-bg, 0.2)
+    color: $ircdocs-dark-blue
 
-        .wordmark
-            font-style: normal
+// header nav
+body > nav
+    a
+        display: inline-block
+        padding: 0.45em 0 0.35em
+        &:first-child
+            margin-right: 2rem
+        + a
+            margin-left: 1.4em
 
+// content
 #content
-    margin: 1rem
-    @include respond-to(wide)
-        max-width: 55rem
-        margin: 1rem auto
-    @include respond-to(desktop)
-        margin: 1rem 1rem
+    margin: 2em 0 0
+    padding-bottom: 3em
 
-    hr
-        border: #99b 0.2rem solid
-        border-radius: 2rem
-        // width: 40%
-        margin: 1.55rem auto
+    .frontpage
+        text-align: center
+        padding: 0
+        h1
+            font-size: 2.85em
+            margin-top: 0
+            margin-bottom: 0.24em
+        subtitle
+            display: block
+            font-size: 1.5em
+            width: 27em
+            max-width: 100%
+            margin: 0 auto
+            line-height: 1.35
 
-#logo
-    text-align: center
+        .frontpage-links
+            margin-top: 2em
+            > h2
+                padding-top: 0.75em
+                font-size: 1.7em
+                font-weight: 600
+                margin-bottom: 0.2em
+                color: #6b6b94
+                a
+                    color: $ircdocs-dark-blue
+            > subtitle
+                font-size: 1.2em
+                padding-bottom: 0.75em
+            > a
+                display: block
+                padding: 0.75em 0
+                h2
+                    font-size: 1.7em
+                    font-weight: 600
+                    margin-bottom: 0.2em
+                subtitle
+                    font-size: 1.2em
+
+body.dark #content .frontpage .frontpage-links > h2 a
+    color: #dadae1
+
+hr
+    background: #99b
+    border: #99b 0.2rem solid
+    border-radius: 2rem
+    margin: 1.55rem auto
 
 .link-block
     margin: 1.25rem 0
     .name
+        font-size: 1.2em
         h1, h2, h3
             margin-bottom: 0
 
@@ -129,6 +137,7 @@ html, body
     display: block
     font-size: 1rem
     margin-left: 1rem
+    margin-top: 0.2em
 .datetime, .source
     font-weight: normal
     display: block
@@ -143,9 +152,21 @@ html, body
     &::before
         content: "Source: "
 
-.mono
-    font-family: $mono_font_family
-    font-size: 80%
+// footer
+footer
+    text-align: center
+    line-height: 1.3
+    padding: 1em 0
+    font-size: 0.9em
+    a
+        display: inline-block
+        padding: 0 0.1em
+
+// generics
+.wrapper
+    width: 57rem
+    max-width: calc(100% - 2em)
+    margin: 0 auto
 
 .img-block
     display: block
@@ -153,50 +174,156 @@ html, body
     max-width: 100%
 
 a
-    transition: color 0.2s
     font-style: italic
     text-decoration: none
-    &:visited, &:active
-        color: #9141d2
+    transition: color 0.2s
 
 h1
+    font-size: 2.5em
     color: #334
-    subtitle
+    margin-top: 0.5em
+    margin-bottom: 0.4em
+    .subtitle, subtitle
         display: block
-        font-size: 1.2rem
+        font-size: 0.6em
         color: #445
         font-weight: normal
+        margin-top: 0.2em
 h2
-    color: #445
+    font-size: 1.9em
+    color: #3e3e4e
+    margin-top: 0.75em
+    margin-bottom: 0.77rem
 h3
-    color: #556
+    color: #445
+    margin-top: 1em
+    margin-bottom: 0.5rem
+h4
+    color: #4e4e5e
+    margin-top: 1em
+    margin-bottom: 0.65rem
 
-h1, h2, h3
+h1, h2, h3, h4
+    page-break-after: avoid
     a
         color: #33a
         &:hover
             color: #119
 
-.nobreakinside
-    white-space: nowrap
+hr
+    @media screen
+        border: transparentize(#99b, 0.85) 0.1rem solid
+        background: transparentize(#99b, 0.85)
+        border-radius: 2rem
+        margin: 3rem auto
+    @media print
+        display: none
 
-// sticky footer stuff
-#wrapper
-    min-height: 100%
-    margin: 0 auto -4rem
-    padding-bottom: 5rem
+p
+    margin-top: 0.5rem
+    line-height: 1.3
+    + p
+        margin-top: 1rem
 
-#footer
-    height: 4rem
-    padding: 0.5rem
-    text-align: center
-    font-size: 0.8rem
-    line-height: 1.2
-    background: #334
-    color: #f7f7fa
+li
+    + li
+        margin-top: 0.9rem
+    p
+        &:first-child
+            margin-top: 0
+        &:last-child
+            margin-bottom: 0
+
+pre, tt, code
+    font-size: 90%
+    font-family: $mono-font-stack
+pre
+    padding: 1rem
+    border-radius: 0.5rem
+    background: #ffb
+    page-break-inside: avoid
+
+.displaynone
+    display: none
+
+//
+//// Colours
+//
+
+// regular colours
+body > nav
+    background: $ircdocs-dark-blue
+    color: $ircdocs-dark-blue-color
+    a, a:visited, a:active
+        color: $ircdocs-dark-blue-link
+
+#content
+    background: $ircdocs-light-bg
+    .frontpage, .frontsec
+        subtitle
+            color: $ircdocs-dark-blue-subtitle
+
+footer
+    background: $ircdocs-dark-blue
+    color: $ircdocs-dark-blue-color
+    a, a:visited, a:active
+        color: $ircdocs-dark-blue-link
+
+a
+    &:visited, &:active
+        color: #9141d2
+
+h1, h2, h3, h4, h5
+    color: $ircdocs-dark-blue
+
+// dark theme
+body:not(.dark)
+    .show-when-dark
+        display: none
+
+body.dark
+    background: $ircdocs-dark-blue
+    color: #dddde3
+
+    .show-when-light
+        display: none
+
+    #darkmodebtn
+        background: transparentize($ircdocs-dark-blue, 0.2)
+        color: #ddd
+    
+    // header
+    > nav
+        a, a:visited, a:active
+            color: #bcbccc
+    
+    .pagenav
+        background: $ircdocs-dark-blue
+    
+    // content
+    #content
+        background: $ircdocs-dark-blue
+        .frontpage, .frontsec
+            subtitle
+                color: #787884
+
+    // footer
+    footer
+        color: #bcbccc
+        a, a:visited, a:active
+            color: #bcbccc
+
+    // generics
     a
-        text-decoration: none
-        font-style: italic
-        color: #efefff
-        &:hover
-            color: #ccf
+        color: #7a7aff
+        &:visited, &:active
+            color: #c194e6
+
+    h1
+        color: #ceceda
+    h2
+        color: #dadae1
+    h3
+        color: #c6c6d2
+    h4
+        color: #b7b7c3

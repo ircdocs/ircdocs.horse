@@ -1,10 +1,17 @@
 # Files/Folders to exclude from the final output
 exclude:
-  - config.rb
   - .sass-cache
+  - CNAME
+  - config.rb
+  - Gemfile
+  - Gemfile.lock
+  - README.md
 
-gems:
+plugins:
   - jekyll-sitemap
+
+sass:
+  sass_dir: css
 
 permalink: none
 

@@ -13,11 +13,17 @@ title: About ircdocs.horse
 So, why did I make ircdocs.horse, and what is it supposed to be?
 
 
+----
+
+
 ## Mission Statement
 
 ircdocs is supposed to capture what the IRC client and server protocols currently are. The goal of the different sites on ircdocs.horse is to make life simpler for implementers of IRC clients, servers, and everything inbetween.
 
 Most importantly, ircdocs is a place where I can fuck around and hopefully build something useful to other people. It doesn't have mandates, a consistent upload schedule, or need any sort of approval from anyone except me. Judging by the feedback I've gotten so far, it's worked out pretty well.
+
+
+----
 
 
 ## My Thoughts

@@ -4,12 +4,7 @@
         <title>{{ page.title }}</title>
         
         <!-- Homepage CSS -->
-        <!-- <link href="/css/fonts.css" rel="stylesheet" type="text/css" /> -->
-        <link href="/css/open-sans.css" rel="stylesheet" type="text/css" />
-        <link href="/css/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
-        <link href="/css/pure-min.css" media="screen, projection" rel="stylesheet" type="text/css" />
         <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-        <!-- <link href="/css/print.css" media="print" rel="stylesheet" type="text/css" /> -->
 
         <meta charset='utf-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -31,35 +26,55 @@
         <link rel="manifest" href="/favicons/manifest.json">
         <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
         <link rel="shortcut icon" href="/favicons/favicon.ico">
-        <meta name="apple-mobile-web-app-title" content="ircdocs.horse">
-        <meta name="application-name" content="ircdocs.horse">
+        <meta name="apple-mobile-web-app-title" content="stats.ircdocs.horse">
+        <meta name="application-name" content="stats.ircdocs.horse">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
         <meta name="msapplication-config" content="/favicons/browserconfig.xml">
         <meta name="theme-color" content="#444455">
     </head>
-    <body>
-        <div id="wrapper">
-            <div id="nav"><div>
-                <nav>
-                    <a href="/" class="wordmark" title="ircdocs.horse">ircdocs</a>
-                    <a href="/specs" title="Specifications"><i class="fa fa-file-text"></i>
- specs</a>
-                    <a href="/info" title="Information"><i class="fa fa-info-circle"></i> information</a>
-                    <a href="/history" title="History"><i class="fa fa-clock-o"></i> history</a>
-                    <a href="/about" title="History"><i class="fa fa-cog"></i> about</a>
-                </nav>
-            </div></div>
-            <div id="content">
+    <body class="{{ page.classes }}">
+        <a onclick="toggledarkmode()" id="darkmodebtn"><i class="fa fa-sun-o show-when-dark"></i><i class="fa fa-moon-o show-when-light"></i></a>
+
+        <nav>
+            <div class="wrapper linklist">
+                <a href="/" class="wordmark" title="ircdocs.horse">ircdocs</a>
+            </div>
+        </nav>
+        <div id="content">
+            <div class="wrapper">
                 {{ content }}
             </div>
         </div>
-        <div id="footer">
-            <a href="/">ircdocs.horse</a> &middot; <a href="https://github.com/ircdocs">Github</a>
-            <br/>
-            <a href="ircs://irc.freenode.net:6697/#ircdocs">#ircdocs on Freenode</a>
-            <br/>
-            <a href="http://danieloaks.net">Made by Daniel Oaks</a>
-        </div>
+        <footer>
+            <div class="wrapper">
+                <a href="https://ircdocs.horse">ircdocs</a> &middot;
+                <a href="https://compendium.ircdocs.horse">compendium</a> &middot;
+                <a href="https://defs.ircdocs.horse">defs</a> &middot;
+                <a href="https://modern.ircdocs.horse">modern docs</a> &middot;
+                <a href="https://stats.ircdocs.horse">stats</a> &middot;
+                <a href="https://wooooms.ircdocs.horse">wooooms</a>
+                <br/>
+                <a href="ircs://irc.freenode.net:6697/#ircdocs">#ircdocs on Freenode</a> &middot;
+                <a href="https://github.com/ircdocs">GitHub</a>
+                <br/>
+                <a href="http://danieloaks.net">Made by Daniel Oaks</a>
+            </div>
+        </footer>
     </body>
+    <script>
+        function toggledarkmode() {
+            document.body.classList.toggle("dark");
+            if (document.body.classList.contains("dark")) {
+                document.cookie = "darkmode=true;path=/";
+            } else {
+                document.cookie = "darkmode=false;path=/";
+            }
+        }
+
+        // set dark mode if we should do so
+        if (document.cookie == 'darkmode=true') {
+            document.body.classList.add('dark');
+        }
+    </script>
 </html>
