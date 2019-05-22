@@ -1,6 +1,6 @@
 ---
 layout: account
-title: IRC-Junkie interview with Jarjjo Oikarinen
+title: IRC-Junkie interview with Jarkko Oikarinen
 author: IRC-Junkie + Jarkko Oikarinen
 written: April 23 2012
 source: http://www.irc-junkie.org/2012-04-23/interview-with-jarkko-oikarinen-the-inventor-of-irc/
