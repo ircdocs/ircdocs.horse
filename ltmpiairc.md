@@ -20,12 +20,13 @@ I also don't want peeps to think that PIA or LTM is hiding anything or trying to
 
 - [Daniel](https://github.com/DanielOaks/) (me)
 - [Prawnsalad](https://github.com/prawnsalad)
+- [linuxdaemon](https://github.com/linuxdaemon)
 
 ### Spec nerds / devs who're sponsored by LTM:
 
 - [Sadie](https://github.com/SaberUK) (through IRC.com to work on InspIRCd)
 
-### Projects that are owned by LTM:
+### Projects that are sponsored by LTM:
 
 - [KiwiIRC](https://kiwiirc.com/blog/Kiwi_IRC_gets_sponsored_by_PrivateInternetAccess)
 - [IRC.com](https://irc.com/lets-take-irc-further)
