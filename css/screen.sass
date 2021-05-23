@@ -101,6 +101,32 @@ hr
     border: #99b 0.2rem solid
     border-radius: 2rem
     margin: 1.55rem auto
+    &.wstester
+        margin: 1.5em auto
+
+form.wstester
+    margin-top: .6em
+    div
+        + div
+            margin-top: .3em
+        &:last-of-type
+            margin-top: .6em
+            input
+                font-size: 1.1em
+#wstesterBottomOfLog
+    .textinput
+        input[type=text]
+            border: 1px solid #334
+            border-color: #33334477
+            border-radius: .3em
+            padding: .2em .4em
+            &:focus
+                border: 1px solid #112
+                border-color: #111122bb
+    .option
+        margin-top: .2em
+        + .option
+            margin-top: .25em
 
 .link-block
     margin: 1.25rem 0
@@ -246,6 +272,10 @@ pre
     &.wstester
         background: #fff
         white-space: pre-wrap
+        margin-top: .65em
+        margin-bottom: .3em
+        border: 1px solid #334
+        border-color: #33334433
 
 .displaynone
     display: none

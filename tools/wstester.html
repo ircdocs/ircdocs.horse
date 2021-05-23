@@ -10,14 +10,16 @@ title: IRC WebSocket Tester
 	</subtitle>
 </h1>
 
-<hr>
+<hr class="wstester">
 
-<h2>Configuration</h2>
+<h3>Configuration</h3>
 
-<form>
+<form class="wstester">
     <div>
         <label for="network">Network URL:</label>
         <input type="text" name="network" id="network" value="wss://testnet.oragono.io/webirc" required>
+        <!-- <input type="button" class="networkSetterButton" value="Oragono" data-url="wss://testnet.oragono.io/webirc"> -->
+        <!-- <input type="button" class="networkSetterButton" value="InspIRCd" data-url="wss://testnet.inspircd.org:8097"> -->
     </div>
     <div>
         <label for="nick">Nickname:</label>
@@ -32,22 +34,26 @@ title: IRC WebSocket Tester
     </div>
 </form>
 
-<hr>
+<hr class="wstester">
+
+<h3>Log</h3>
 
 <pre id="ircLog" class="wstester">
     ... irc lines will go here ...
 </pre>
-<div style="display: flex;">
-    <input type="text" name="newIrcLine" id="newIrcLine" style="width: 100%;">
-    <input type="button" id="sendButton" value="Send Line" style="margin-left: .5em;">
-</div>
-<div>
-    <label for="followNewLines">Follow New Lines:</label>
-    <input type="checkbox" name="followNewLines" id="followNewLines" checked>
-</div>
-<div>
-    <label for="respondToPings">Respond to PINGs:</label>
-    <input type="checkbox" name="respondToPings" id="respondToPings" checked>
+<div id="wstesterBottomOfLog">
+    <div class="textinput" style="display: flex;">
+        <input type="text" name="newIrcLine" id="newIrcLine" style="width: 100%;">
+        <input type="button" id="sendButton" value="Send Line" style="margin-left: .5em;">
+    </div>
+    <div class="option">
+        <label for="followNewLines">Follow New Lines:</label>
+        <input type="checkbox" name="followNewLines" id="followNewLines" checked>
+    </div>
+    <div class="option">
+        <label for="respondToPings">Respond to PINGs:</label>
+        <input type="checkbox" name="respondToPings" id="respondToPings" checked>
+    </div>
 </div>
 
 <script>
@@ -158,5 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
   sendButton.addEventListener('click', () => {
     sendNewLine();
   });
+
+  for (let element of document.getElementsByClassName('networkSetterButton')) {
+    element.addEventListener('click', () => {
+      network.value = element.dataset.url;
+    })
+  }
 }, false);
 </script>
