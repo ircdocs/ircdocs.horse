@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log(e)
     })
     socket.addEventListener('error', error => {
-      addLineToLog("[ircws-tester] Error");
+      addLineToLog("[ircws-tester] We encountered an error. Try changing to 'EmptyProtocol WS', or see if 'ircdocs.horse' is in the Allowed-Origins on the WebSocket server.");
       console.log(error)
     })
   });
