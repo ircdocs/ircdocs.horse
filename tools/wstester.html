@@ -18,16 +18,20 @@ title: IRC WebSocket Tester
     <div>
         <label for="network">Network URL:</label>
         <input type="text" name="network" id="network" value="wss://testnet.oragono.io/webirc" required>
-        <!-- <input type="button" class="networkSetterButton" value="Oragono" data-url="wss://testnet.oragono.io/webirc"> -->
-        <!-- <input type="button" class="networkSetterButton" value="InspIRCd" data-url="wss://testnet.inspircd.org:8097"> -->
+        <input type="button" class="networkSetterButton" value="Oragono" data-url="wss://testnet.oragono.io/webirc" data-wstype="text">
+        <input type="button" class="networkSetterButton" value="InspIRCd" data-url="wss://testnet.inspircd.org:8097" data-wstype="none">
     </div>
     <div>
         <label for="nick">Nickname:</label>
         <input type="text" name="nick" id="nick">
     </div>
     <div>
-        <label for="preferTextWebSocket">Prefer text WebSocket:</label>
-        <input type="checkbox" name="preferTextWebSocket" id="preferTextWebSocket" checked>
+        <input type="radio" id="wsTypeText" name="wsType" value="text" checked>
+        <label for="wsTypeText">Text WS</label>
+        <input type="radio" id="wsTypeBinary" name="wsType" value="binary">
+        <label for="wsTypeBinary">Binary WS</label>
+        <input type="radio" id="wsTypeNone" name="wsType" value="none">
+        <label for="wsTypeNone">EmptyProtocol WS</label>
     </div>
     <div>
         <input type="button" id="connectButton" value="Connect">
@@ -82,9 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const network = document.getElementById('network');
   const nick = document.getElementById('nick');
-  const preferTextWebSocket = document.getElementById('preferTextWebSocket');
   const connectButton = document.getElementById('connectButton');
   const respondToPings = document.getElementById('respondToPings');
+  const wsTypeText = document.getElementById('wsTypeText');
+  const wsTypeBinary = document.getElementById('wsTypeBinary');
+  const wsTypeNone = document.getElementById('wsTypeNone');
   connectButton.addEventListener('click', () => {
     if (socket != null) {
         followNewLines.checked = true;
@@ -93,9 +99,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     clearLog();
     addLineToLog("[ircws-tester] Connecting...");
-    let protos = ['binary.ircv3.net', 'text.ircv3.net'];
-    if (preferTextWebSocket.checked) {
+    let protos = [];
+    if (wsTypeText.checked) {
       protos = ['text.ircv3.net', 'binary.ircv3.net'];
+    } else if (wsTypeBinary.checked) {
+      protos = ['binary.ircv3.net', 'text.ircv3.net'];
+    } else if (wsTypeNone.checked) {
+      protos = [];
+    } else {
+      addLineToLog('[ircws] Invalid WebSocket type selected, aborting connection.')
+      return
     }
     socket = new WebSocket(network.value, protos);
     socket.addEventListener('open', () => {
@@ -170,6 +183,17 @@ document.addEventListener('DOMContentLoaded', () => {
   for (let element of document.getElementsByClassName('networkSetterButton')) {
     element.addEventListener('click', () => {
       network.value = element.dataset.url;
+      switch (element.dataset.wstype) {
+        case 'text':
+          wsTypeText.checked = true;
+          break;
+        case 'binary':
+          wsTypeBinary.checked = true;
+          break;
+        case 'none':
+          wsTypeNone.checked = true;
+          break;
+      }
     })
   }
 }, false);
