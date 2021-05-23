@@ -100,7 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
     socket = new WebSocket(network.value, protos);
     socket.addEventListener('open', () => {
       addLineToLog(`[ircws-tester] Connected using WS protocol [${socket.protocol}]`);
-      if (nick.value != '') {
+      if (nick.value == '') {
+        addLineToLog("[ircws-tester] Start typing IRC protocol lines!");
+      } else {
         socket.send('USER 0 0 0 0');
         addClientLineToLog('USER 0 0 0 0')
         socket.send(`NICK ${nick.value}`);
