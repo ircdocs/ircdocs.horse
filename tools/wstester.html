@@ -18,12 +18,13 @@ title: IRC WebSocket Tester
 
     <form id="wstesterForm" class="wstester">
         <div>
-            <label>Examples:</label>
+            <label>Servers:</label>
             <input type="button" class="networkSetterButton" value="Oragono" data-url="wss://testnet.oragono.io/webirc" data-wstype="text">
             <input type="button" class="networkSetterButton" value="InspIRCd" data-url="wss://testnet.inspircd.org:8097" data-wstype="none">
+            <input type="button" class="networkSetterButton" value="UnrealIRCd" data-url="wss://irc.unrealircd.org" data-wstype="none">
         </div>
         <div>
-            <label for="network">Network URL:</label>
+            <label for="network">WebSocket URL:</label>
             <input type="text" name="network" id="network" value="wss://testnet.oragono.io/webirc" required>
         </div>
         <div>
