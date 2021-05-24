@@ -127,6 +127,33 @@ form.wstester
         margin-top: .2em
         + .option
             margin-top: .25em
+.wstesterSplitDisplay
+    display: flex
+    flex-wrap: wrap
+    margin-top: -1em
+    h3
+        margin-top: 1em
+    div
+        &:first-child
+            margin-right: .5em
+            flex: 1 1 auto
+        pre
+            font-size: .7em
+            width: 33em
+            width: 60ch
+            overflow-x: hidden
+            position: relative
+            &:before
+                content: ''
+                width: 6em
+                height: 100%
+                position: absolute
+                right: 0
+                top: 0
+                background: linear-gradient(to right, transparent 0px, #ffb)
+                pointer-events: none
+    #copyExampleCodeButton
+        float: right
 
 .link-block
     margin: 1.25rem 0
@@ -380,3 +407,7 @@ body.dark
                 background: #2c2c3a
                 border-color: #0c0c10
                 color: #eee
+    .wstesterSplitDisplay pre
+        background: #2c2c3a
+        &:before
+            background: linear-gradient(to right, transparent 0px, #2c2c3a)

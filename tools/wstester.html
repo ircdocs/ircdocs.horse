@@ -12,31 +12,54 @@ title: IRC WebSocket Tester
 
 <hr class="wstester">
 
-<h3>Configuration</h3>
+<div class="wstesterSplitDisplay">
+  <div>
+    <h3>Configuration</h3>
 
-<form class="wstester">
-    <div>
-        <label for="network">Network URL:</label>
-        <input type="text" name="network" id="network" value="wss://testnet.oragono.io/webirc" required>
-        <input type="button" class="networkSetterButton" value="Oragono" data-url="wss://testnet.oragono.io/webirc" data-wstype="text">
-        <input type="button" class="networkSetterButton" value="InspIRCd" data-url="wss://testnet.inspircd.org:8097" data-wstype="none">
-    </div>
-    <div>
-        <label for="nick">Nickname:</label>
-        <input type="text" name="nick" id="nick">
-    </div>
-    <div>
-        <input type="radio" id="wsTypeText" name="wsType" value="text" checked>
-        <label for="wsTypeText">Text WS</label>
-        <input type="radio" id="wsTypeBinary" name="wsType" value="binary">
-        <label for="wsTypeBinary">Binary WS</label>
-        <input type="radio" id="wsTypeNone" name="wsType" value="none">
-        <label for="wsTypeNone">EmptyProtocol WS</label>
-    </div>
-    <div>
-        <input type="button" id="connectButton" value="Connect">
-    </div>
-</form>
+    <form id="wstesterForm" class="wstester">
+        <div>
+            <label>Examples:</label>
+            <input type="button" class="networkSetterButton" value="Oragono" data-url="wss://testnet.oragono.io/webirc" data-wstype="text">
+            <input type="button" class="networkSetterButton" value="InspIRCd" data-url="wss://testnet.inspircd.org:8097" data-wstype="none">
+        </div>
+        <div>
+            <label for="network">Network URL:</label>
+            <input type="text" name="network" id="network" value="wss://testnet.oragono.io/webirc" required>
+        </div>
+        <div>
+            <label for="nick">Nickname:</label>
+            <input type="text" name="nick" id="nick">
+        </div>
+        <div>
+            <input type="radio" id="wsTypeText" name="wsType" value="text" checked>
+            <label for="wsTypeText">Text WS</label>
+            <input type="radio" id="wsTypeBinary" name="wsType" value="binary">
+            <label for="wsTypeBinary">Binary WS</label>
+            <input type="radio" id="wsTypeNone" name="wsType" value="none">
+            <label for="wsTypeNone">EmptyProtocol WS</label>
+        </div>
+        <div>
+            <input type="button" id="connectButton" value="Connect">
+        </div>
+    </form>
+  </div>
+  <div>
+    <h3>Example WebSocket code <input type="button" id="copyExampleCodeButton" value="copy to clipboard"></h3>
+    <pre id="websocketCodePre">
+let socket = new WebSocket('wss://ws.example.org', ['text.ircv3.net', 'binary.ircv3.net']);
+socket.addEventListener('open', () => {
+  socket.send('NICK dan');
+  socket.send('USER 0 0 0 0');
+});
+socket.addEventListener('message', async e => {
+  var line = e.data;
+  if (line instanceof Blob) {
+    line = await e.data.text();
+  }
+  processLine(line);
+})</pre>
+  </div>
+</div>
 
 <hr class="wstester">
 
@@ -197,7 +220,44 @@ document.addEventListener('DOMContentLoaded', () => {
           wsTypeNone.checked = true;
           break;
       }
+      websocketCodePre.innerText = assembleExampleCode();
     })
   }
+
+  function assembleExampleCode() {
+    const wssurl = network.value || 'wss://ws.example.org';
+    let code = `let socket = new WebSocket('${wssurl}'`;
+    if (wsTypeText.checked) {
+      code += `, ['text.ircv3.net', 'binary.ircv3.net']`;
+    } else if (wsTypeBinary.checked) {
+      code += `, ['binary.ircv3.net', 'text.ircv3.net']`;
+    }
+    code += `);\nsocket.addEventListener('open', () => {\n`;
+    let exnick = nick.value || 'dan';
+    code += `  socket.send('NICK ${exnick}');\n`;
+    code += `  socket.send('USER 0 0 0 0');\n`;
+    code += `});\nsocket.addEventListener('message', async e => {\n`;
+    code += `  var line = e.data;\n  if (line instanceof Blob) {\n`;
+    code += `    line = await e.data.text();\n  }\n`;
+    code += `  processLine(line);\n})`;
+    return code;
+  }
+  const wstesterForm = document.getElementById('wstesterForm');
+  const websocketCodePre = document.getElementById('websocketCodePre');
+  wstesterForm.addEventListener('change', () => {
+    websocketCodePre.innerText = assembleExampleCode();
+  });
+  const copyExampleCodeButton = document.getElementById('copyExampleCodeButton');
+  copyExampleCodeButton.addEventListener('click', () => {
+    const textArea = document.createElement('textarea');
+    textArea.style.position = 'absolute';
+    textArea.style.left = '-100em';
+    textArea.textContent = assembleExampleCode();
+    document.body.append(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.remove();
+  });
+  websocketCodePre.innerText = assembleExampleCode();
 }, false);
 </script>
