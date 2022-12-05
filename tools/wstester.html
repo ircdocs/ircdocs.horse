@@ -176,7 +176,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     socket.addEventListener('close', e => {
-      addLineToLog("[ircws-tester] Connection closed");
+      if (e.reason) {
+        addLineToLog(`[ircws-tester] Connection closed (${e.reason})`);
+      } else {
+        addLineToLog("[ircws-tester] Connection closed");
+      }
       console.log(e)
       const oldSocket = socket;
       socket = null;
